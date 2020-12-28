@@ -20,55 +20,55 @@ class MatrixAndWordImplTest {
     @Test
     void isEmptyInput_NotOk() {
         assertThrows(EmptyInputException.class, () ->
-                matrixAndWord.getSequence_Of_Cells("", "Nice"));
+                matrixAndWord.getSequenceOfCells("", "Nice"));
         assertThrows(EmptyInputException.class, () ->
-                matrixAndWord.getSequence_Of_Cells("ABCDQWQER", ""));
+                matrixAndWord.getSequenceOfCells("ABCDQWQER", ""));
         assertThrows(EmptyInputException.class, () ->
-                matrixAndWord.getSequence_Of_Cells("", ""));
+                matrixAndWord.getSequenceOfCells("", ""));
     }
 
     @Test
     void incorrectLength_notOk() {
         assertThrows(IncorrectLengthException.class, () ->
-                matrixAndWord.getSequence_Of_Cells("ABC", "A"));
+                matrixAndWord.getSequenceOfCells("ABC", "A"));
         assertThrows(IncorrectLengthException.class, () ->
-                matrixAndWord.getSequence_Of_Cells("ABCCDE", "..."));
+                matrixAndWord.getSequenceOfCells("ABCCDE", "..."));
         assertThrows(IncorrectLengthException.class, () ->
-                matrixAndWord.getSequence_Of_Cells("AB", "p"));
+                matrixAndWord.getSequenceOfCells("AB", "p"));
     }
 
     @Test
     void input_Ok() {
         assertEquals("[0,0]->[0,1]->[1,1]->[1,0]",
-                matrixAndWord.getSequence_Of_Cells("NIEC", "Nice"));
+                matrixAndWord.getSequenceOfCells("NIEC", "Nice"));
         assertEquals("[0,1]->[1,1]->[1,2]->[2,2]",
-                matrixAndWord.getSequence_Of_Cells("QNWAICSDE", "Nice"));
+                matrixAndWord.getSequenceOfCells("QNWAICSDE", "Nice"));
         assertEquals("[0,2]->[1,2]->[2,2]",
-                matrixAndWord.getSequence_Of_Cells("ABCDEABABAABRABABCDAABCDS", "CAR"));
+                matrixAndWord.getSequenceOfCells("ABCDEABABAABRABABCDAABCDS", "CAR"));
     }
 
     @Test
     void inputWithNumbers_Ok() {
         assertEquals("[0,0]->[0,1]->[1,1]->[1,0]",
-                matrixAndWord.getSequence_Of_Cells("NI11EC121234-=+/", "Nice"));
+                matrixAndWord.getSequenceOfCells("NI11EC121234-=+/", "Nice"));
     }
 
     @Test
     void inputWithTheSameLetters_Ok() {
         assertEquals("[1,2]->[1,3]->[0,3]->[0,2]",
-                matrixAndWord.getSequence_Of_Cells("QLGNAEKIRLRNGEAE", "King"));
+                matrixAndWord.getSequenceOfCells("QLGNAEKIRLRNGEAE", "King"));
         assertEquals("[0,0]->[1,0]->[1,1]->[2,1]",
-                matrixAndWord.getSequence_Of_Cells("MKAAILNNL", "MAIN"));
+                matrixAndWord.getSequenceOfCells("MKAAILNNL", "MAIN"));
         assertEquals("[1,2]->[1,3]->[2,3]->[3,3]",
-                matrixAndWord.getSequence_Of_Cells("QLZNAEKIRLRNGEAG", "King"));
+                matrixAndWord.getSequenceOfCells("QLZNAEKIRLRNGEAG", "King"));
     }
 
     @Test
     void inputWithDoubleLetters_Ok() {
         assertEquals("[0,0]->[0,1]->[0,2]->[1,2]->[2,2]",
-                matrixAndWord.getSequence_Of_Cells("APPCDLAZE", "APPLE"));
+                matrixAndWord.getSequenceOfCells("APPCDLAZE", "APPLE"));
         assertEquals("[0,1]->[0,0]->[1,0]->[2,0]->[3,0]->[3,1]->[2,1]",
-                matrixAndWord.getSequence_Of_Cells("OCFGRASDRTGVECFD", "CORRECT"));
+                matrixAndWord.getSequenceOfCells("OCFGRASDRTGVECFD", "CORRECT"));
     }
 
     @Test
@@ -76,7 +76,7 @@ class MatrixAndWordImplTest {
         assertEquals("[12,11]->[12,12]->[12,13]->[11,13]->[10,13]->[9,13]->[9,14]"
                 + "->[9,15]->[9,16]->[10,16]->[11,16]->[12,16]->[13,16]->[14,16]->[15,16]->"
                 + "[16,16]->[17,16]->[18,16]->[19,16]->[19,15]->[19,14]->[19,13]->[19,12]->"
-                + "[19,11]->[19,10]->[19,9]->[19,8]", matrixAndWord.getSequence_Of_Cells(
+                + "[19,11]->[19,10]->[19,9]->[19,8]", matrixAndWord.getSequenceOfCells(
                 "QWERTYUIOPASDFGHJKLZZXCVBinidutilGHDCVERFDSSZBDQERTYiNJYXVWS"
                         + "XGDSAQQQWADAbNHSZYLLVBXZXDAAAXSZaBSASKKZYWQAFSFDZVCXcVCVFGCX"
                         + "EdutilibacificabilitRASUYIZVBNZiUASLOLFuAFDTSIXCBNXrTETIRWUd"
@@ -90,43 +90,43 @@ class MatrixAndWordImplTest {
     @Test
     void inputWithManyVariations_Ok() {
         assertEquals("[0,0]->[1,0]->[2,0]->[3,0]->[3,1]->[4,1]->[4,2]->[4,3]",
-                matrixAndWord.getSequence_Of_Cells("SOMEBOBABOMBRADEBZDAYODYS", "SOMEBODY"));
+                matrixAndWord.getSequenceOfCells("SOMEBOBABOMBRADEBZDAYODYS", "SOMEBODY"));
         assertEquals("[0,0]->[1,0]->[2,0]->[3,0]->[3,1]->[4,1]->[4,2]->[4,3]",
-                matrixAndWord.getSequence_Of_Cells("SOZDEOBABAMBRABEBZDAYODYS", "SOMEBODY"));
+                matrixAndWord.getSequenceOfCells("SOZDEOBABAMBRABEBZDAYODYS", "SOMEBODY"));
         assertEquals("[0,2]->[1,2]->[2,2]->[3,2]->[3,3]->[2,3]",
-                matrixAndWord.getSequence_Of_Cells("ARDFGRAARAOTFZANDAXVGOXCXNKRWHLSWQPR",
+                matrixAndWord.getSequenceOfCells("ARDFGRAARAOTFZANDAXVGOXCXNKRWHLSWQPR",
                         "Dragon"));
         assertEquals("[0,0]->[0,1]->[1,1]->[2,1]->[2,2]->[2,3]->[2,4]->[3,4]->[4,4]->[4,3]",
-                matrixAndWord.getSequence_Of_Cells("EXPERXPOIUPERIEZXCVNASDEC", "EXPERIENCE"));
+                matrixAndWord.getSequenceOfCells("EXPERXPOIUPERIEZXCVNASDEC", "EXPERIENCE"));
     }
 
     @Test
     void inputWithLowerCase_Ok() {
         assertEquals("[0,0]->[1,0]->[2,0]->[3,0]->[3,1]->[4,1]->[4,2]->[4,3]",
-                matrixAndWord.getSequence_Of_Cells("SOMEBOBABOMBRADEBZDAYODYS", "SoMeBOdY"));
+                matrixAndWord.getSequenceOfCells("SOMEBOBABOMBRADEBZDAYODYS", "SoMeBOdY"));
         assertEquals("[1,0]->[1,1]->[0,1]->[0,2]->[1,2]->[1,3]",
-                matrixAndWord.getSequence_Of_Cells("ZANZORGENMBCKJJG", "OraNgE"));
+                matrixAndWord.getSequenceOfCells("ZANZORGENMBCKJJG", "OraNgE"));
     }
 
     @Test
     void inputWithTwoVariations_Ok() {
         assertEquals("[0,0]->[1,0]->[2,0]->[2,1]",
-                matrixAndWord.getSequence_Of_Cells("MAQALLINL", "Main"));
+                matrixAndWord.getSequenceOfCells("MAQALLINL", "Main"));
     }
 
     @Test
     void wordIsNotFound_Ok() {
         assertThrows(NoSuchElementException.class, () ->
-                matrixAndWord.getSequence_Of_Cells("MAIQAFGHIEWLPLGF", "Main"));
+                matrixAndWord.getSequenceOfCells("MAIQAFGHIEWLPLGF", "Main"));
         assertThrows(NoSuchElementException.class, () ->
-                matrixAndWord.getSequence_Of_Cells("ACFGRRSDRTGVECFD", "CORRECT"));
+                matrixAndWord.getSequenceOfCells("ACFGRRSDRTGVECFD", "CORRECT"));
     }
 
     @Test
     void wordIsNotFound_NotOk() {
         assertThrows(NoSuchElementException.class, () ->
-                matrixAndWord.getSequence_Of_Cells("ASDFAPEOSZLPZXCV", "PEOPLE"));
+                matrixAndWord.getSequenceOfCells("ASDFAPEOSZLPZXCV", "PEOPLE"));
         assertThrows(NoSuchElementException.class, () ->
-                matrixAndWord.getSequence_Of_Cells("DISISVZOXCVNZXCV", "DIVISION"));
+                matrixAndWord.getSequenceOfCells("DISISVZOXCVNZXCV", "DIVISION"));
     }
 }

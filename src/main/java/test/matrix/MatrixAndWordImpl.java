@@ -15,7 +15,7 @@ public class MatrixAndWordImpl implements MatrixAndWord {
     private Character[][] characters;
 
     @Override
-    public String getSequence_Of_Cells(String letters, String word) {
+    public String getSequenceOfCells(String letters, String word) {
         this.letters = letters.toUpperCase();
         this.word = word.toUpperCase();
         size = 0;
@@ -25,25 +25,18 @@ public class MatrixAndWordImpl implements MatrixAndWord {
         getCharacterArray();
         StringBuilder result = new StringBuilder();
         result.append(getFirstLetter());
-        return finder(result);
+        return letterSearch(result);
     }
 
-    private String finder(StringBuilder result) {
+    private String letterSearch(StringBuilder result) {
         int counter = 0;
         boolean isFoundLetter = false;
-        while (counter < this.word.length()) {
-            for (int i = firstPosition != 0 ? firstPosition - 1 : 0; i < lengthOfMatrix; i++) {
-                for (int j = secondPosition != 0 ? secondPosition - 1 : 0;
-                        j < lengthOfMatrix; j++) {
-                    if (size < this.word.length()
-                            && characters[i][j] == this.word.charAt(size)
-                            && (((i == firstPosition + 1 || i == firstPosition - 1)
-                            && j == secondPosition)
-                            || ((j == secondPosition + 1 || j == secondPosition - 1)
-                            && i == firstPosition))
-                            && checkNextLetters(i, j, size)) {
+        while (counter < word.length()) {
+            for (int i = getFirstPosition(); i < lengthOfMatrix; i++) {
+                for (int j = getSecondPosition(); j < lengthOfMatrix; j++) {
+                    if (searchLetterCompareToPreviously(i, j)) {
                         result.append("[").append(i).append(",").append(j).append("]");
-                        if (size != this.word.length() - 1) {
+                        if (size != word.length() - 1) {
                             result.append("->");
                         }
                         size++;
@@ -65,6 +58,24 @@ public class MatrixAndWordImpl implements MatrixAndWord {
         return result.toString();
     }
 
+    private int getFirstPosition() {
+        return firstPosition != 0 ? firstPosition - 1 : 0;
+    }
+
+    private int getSecondPosition() {
+        return secondPosition != 0 ? secondPosition - 1 : 0;
+    }
+
+    private boolean searchLetterCompareToPreviously(int i, int j) {
+        return size < word.length()
+                && characters[i][j] == word.charAt(size)
+                && (((i == firstPosition + 1 || i == firstPosition - 1)
+                && j == secondPosition)
+                || ((j == secondPosition + 1 || j == secondPosition - 1)
+                && i == firstPosition))
+                && checkNextLetters(i, j, size);
+    }
+
     private void getCharacterArray() {
         int counter = 0;
         for (int i = 0; i < lengthOfMatrix; i++) {
@@ -81,8 +92,8 @@ public class MatrixAndWordImpl implements MatrixAndWord {
                 if (characters[i][j] == word.charAt(0) && size < 1
                         && checkNextLetters(i, j, size)) {
                     firstLetterPosition = "[" + i + "," + j + "]" + "->";
-                    this.firstPosition = i;
-                    this.secondPosition = j;
+                    firstPosition = i;
+                    secondPosition = j;
                     size++;
                     characters[i][j] = ' ';
                     break;
@@ -99,7 +110,7 @@ public class MatrixAndWordImpl implements MatrixAndWord {
     }
 
     private void checkInputData() {
-        if (letters.equals("") || word.equals("")) {
+        if (letters.isEmpty() || word.isEmpty()) {
             throw new EmptyInputException("Input cannot be empty");
         }
         if (letters.length() % Math.sqrt(letters.length()) != 0) {
@@ -114,21 +125,23 @@ public class MatrixAndWordImpl implements MatrixAndWord {
                     && characters[localX][localY + 1] == word.charAt(sizeCounter + 1)
                     && checkNextLetters(localX, localY + 1, sizeCounter + 1)) {
                 break;
-            } else if (localY != 0
+            }
+            if (localY != 0
                     && characters[localX][localY - 1] == word.charAt(sizeCounter + 1)
                     && checkNextLetters(localX, localY - 1, sizeCounter + 1)) {
                 break;
-            } else if (localX != 0
+            }
+            if (localX != 0
                     && characters[localX - 1][localY] == word.charAt(sizeCounter + 1)
                     && checkNextLetters(localX - 1, localY, sizeCounter + 1)) {
                 break;
-            } else if (localX != lengthOfMatrix - 1
+            }
+            if (localX != lengthOfMatrix - 1
                     && characters[localX + 1][localY] == word.charAt(sizeCounter + 1)
                     && checkNextLetters(localX + 1, localY, sizeCounter + 1)) {
                 break;
-            } else {
-                return false;
             }
+            return false;
         }
         return true;
     }
