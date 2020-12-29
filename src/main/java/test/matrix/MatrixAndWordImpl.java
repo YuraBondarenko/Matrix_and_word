@@ -25,10 +25,10 @@ public class MatrixAndWordImpl implements MatrixAndWord {
         getCharacterArray();
         StringBuilder result = new StringBuilder();
         result.append(getFirstLetter());
-        return letterSearch(result);
+        return searchLetter(result);
     }
 
-    private String letterSearch(StringBuilder result) {
+    private String searchLetter(StringBuilder result) {
         int counter = 0;
         boolean isFoundLetter = false;
         while (counter < word.length()) {
